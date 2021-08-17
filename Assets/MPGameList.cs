@@ -24,8 +24,13 @@ public class MPGameList : MonoBehaviour
         {
             UnityMainThreadDispatcher.Instance().Enqueue(ThisWillBeExecutedOnTheMainThread(serverListDTO));
         };
-        ServerController.Instance.GetServerList();
     }
+
+    private void OnApplicationQuit()
+    {
+        ServerController.Instance.Disconnect();
+    }
+
     public IEnumerator ThisWillBeExecutedOnTheMainThread(ServerListDTO serverListDTO)
     {
         foreach (ServerDTO serverDTO in serverListDTO.servers)

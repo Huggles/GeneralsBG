@@ -24,6 +24,8 @@ public class ServerListItem : ListItem
     public void Init(ServerDTO serverDTO)
     {
         this.ServerDTO = serverDTO;
+        this.ServerNameText.text = serverDTO.serverName;
+        this.IpAddressText.text = serverDTO.ipAddress;
     }
 
     public void JoinClicked()

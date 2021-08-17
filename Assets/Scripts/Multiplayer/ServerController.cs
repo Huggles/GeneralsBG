@@ -8,6 +8,10 @@ using WebSocketSharp;
 
 public class ServerController
 {
+
+    public string serverIp = "192.168.2.48";
+    public string serverPort = "1234";
+
     private static ServerController _instance;
 
     public static ServerController Instance
@@ -22,7 +26,7 @@ public class ServerController
         }
     }
     public void Disconnect()
-    {
+    {        
         ws.Close();
         _instance = null;
     }
@@ -42,9 +46,17 @@ public class ServerController
     {
         try
         {
-            ws = new WebSocket("ws://localhost:8080");
-            ws.Connect();
+            ws = new WebSocket("ws://"+ serverIp + ":"+serverPort);
+            ws.ConnectAsync();
             ws.OnMessage += HandleIncomingMessage;
+            ws.OnOpen += (sender, e) =>
+            {
+                Debug.Log("Connection Established");
+            };
+            ws.OnError += (sender, e) => {
+                Debug.Log(e.Message);
+            };
+
         }
         catch (Exception ex)
         {
