@@ -30,7 +30,13 @@ public class ServerListItem : ListItem
 
     public void JoinClicked()
     {
-        NetworkManager.Singleton.GetComponent<UNetTransport>().ConnectAddress = ServerDTO.ipAddress;
+        string ipAddress = ServerDTO.ipAddress;
+        string[] ipAddressParts = ipAddress.Split(':');
+        if(ipAddressParts.Length > 1)
+        {
+            ipAddress = ipAddressParts[ipAddressParts.Length - 1];
+        }
+        NetworkManager.Singleton.GetComponent<UNetTransport>().ConnectAddress = ipAddress;
         NetworkManager.Singleton.StartClient();
 
         JoinServerEvent joinServerEvent = new JoinServerEvent();

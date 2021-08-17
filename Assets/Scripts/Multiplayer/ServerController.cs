@@ -52,6 +52,7 @@ public class ServerController
             ws.OnOpen += (sender, e) =>
             {
                 Debug.Log("Connection Established");
+                GetServerList();
             };
             ws.OnError += (sender, e) => {
                 Debug.Log(e.Message);
